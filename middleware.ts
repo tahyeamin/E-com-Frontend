@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
   // ১. কুকি থেকে টোকেন এবং রোল বের করা
-  console.log("==> Middleware running for:", request.nextUrl.pathname);
+ 
   const token = request.cookies.get('token')?.value;
   const userRole = request.cookies.get('role')?.value;
 

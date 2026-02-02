@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { ShoppingCart, User, Search, LogOut, LayoutDashboard, ChevronDown, Menu, X } from 'lucide-react';
+import { ShoppingCart, User, Search, LogOut, LayoutDashboard, ChevronDown, Menu, X, ShieldCheck } from 'lucide-react'; // ShieldCheck যোগ করা হয়েছে
 import { useAuthStore } from '@/store/useAuthStore';
 
 export const Navbar = () => {
@@ -9,8 +9,9 @@ export const Navbar = () => {
   const [isCatOpen, setIsCatOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // ডাইনামিক অ্যাডমিন চেক (ডাটাবেজে ছোট বা বড় হাতের যাই থাকুক)
+  // ডাইনামিক রোল চেক (বিদ্যমান লজিক ঠিক রাখা হয়েছে)
   const isAdmin = user?.role?.toUpperCase() === 'ADMIN';
+  const isManager = user?.role?.toUpperCase() === 'MANAGER'; // নতুন ম্যানেজার চেক
 
   const categories = [
     { name: 'Computers', href: '/category/computers' },
@@ -36,7 +37,7 @@ export const Navbar = () => {
             PRIME<span className="text-blue-500">TECH</span>
           </Link>
 
-          {/* অ্যাডমিন প্যানেল বাটন (লোগোর পাশে ডেস্কটপ ভিউতে) */}
+          {/* অ্যাডমিন প্যানেল বাটন (বিদ্যমান) */}
           {isAdmin && (
             <Link 
               href="/admin" 
@@ -46,7 +47,17 @@ export const Navbar = () => {
             </Link>
           )}
 
-          {/* Categories Dropdown */}
+          {/* নতুন ম্যানেজার প্যানেল বাটন (লোগোর পাশে ডেস্কটপ ভিউতে) */}
+          {isManager && (
+            <Link 
+              href="/manager" 
+              className="hidden md:flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ml-4 border border-green-500 shadow-lg shadow-green-900/20"
+            >
+              <ShieldCheck size={14} /> Manager Panel
+            </Link>
+          )}
+
+          {/* Categories Dropdown (বিদ্যমান) */}
           <div 
             className="relative hidden lg:block"
             onMouseEnter={() => setIsCatOpen(true)}
@@ -67,7 +78,7 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* --- Middle: Search Bar --- */}
+        {/* --- Middle: Search Bar (বিদ্যমান) --- */}
         <div className="hidden lg:flex flex-1 mx-12 max-w-md relative">
           <input 
             type="text" 
@@ -77,7 +88,7 @@ export const Navbar = () => {
           <Search className="absolute left-3 top-2.5 text-gray-500" size={16} />
         </div>
 
-        {/* --- Right: Cart & Auth --- */}
+        {/* --- Right: Cart & Auth (বিদ্যমান) --- */}
         <div className="flex items-center gap-3 md:gap-6">
           <button className="lg:hidden hover:text-blue-400 p-1">
             <Search size={22} />
@@ -93,7 +104,7 @@ export const Navbar = () => {
           {user ? (
             <div className="flex items-center gap-3 border-l border-gray-800 pl-4 md:pl-6">
               <div className="hidden sm:flex flex-col items-end text-right">
-                <span className={`text-[9px] font-black uppercase tracking-tighter px-1.5 py-0.5 rounded shadow-sm ${isAdmin ? 'bg-blue-600 text-white' : 'bg-gray-800 text-blue-400'}`}>
+                <span className={`text-[9px] font-black uppercase tracking-tighter px-1.5 py-0.5 rounded shadow-sm ${isAdmin ? 'bg-blue-600 text-white' : isManager ? 'bg-green-600 text-white' : 'bg-gray-800 text-blue-400'}`}>
                   {user.role}
                 </span>
                 <span className="text-sm font-black uppercase tracking-tight mt-0.5">{user.name}</span>
@@ -120,6 +131,7 @@ export const Navbar = () => {
             </div>
 
             <div className="space-y-6 flex-1">
+              {/* মোবাইল মেনুতে অ্যাডমিন লিঙ্ক */}
               {isAdmin && (
                 <Link 
                   href="/admin" 
@@ -127,6 +139,17 @@ export const Navbar = () => {
                   className="flex items-center gap-3 bg-blue-600 text-white p-4 rounded-xl font-bold text-sm shadow-lg shadow-blue-100"
                 >
                   <LayoutDashboard size={18} /> Admin Dashboard
+                </Link>
+              )}
+
+              {/* মোবাইল মেনুতে ম্যানেজার লিঙ্ক */}
+              {isManager && (
+                <Link 
+                  href="/manager" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-3 bg-green-600 text-white p-4 rounded-xl font-bold text-sm shadow-lg shadow-green-100"
+                >
+                  <ShieldCheck size={18} /> Manager Dashboard
                 </Link>
               )}
 
@@ -144,11 +167,11 @@ export const Navbar = () => {
 
             {user && (
               <div className="pt-6 border-t flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-white uppercase shadow-md">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white uppercase shadow-md ${isAdmin ? 'bg-blue-600' : isManager ? 'bg-green-600' : 'bg-gray-600'}`}>
                   {user.name[0]}
                 </div>
                 <div>
-                  <span className={`text-[9px] font-black uppercase tracking-tighter px-1.5 py-0.5 rounded shadow-sm ${isAdmin ? 'bg-blue-600 text-white' : 'bg-gray-100 text-blue-600'}`}>
+                  <span className={`text-[9px] font-black uppercase tracking-tighter px-1.5 py-0.5 rounded shadow-sm ${isAdmin ? 'bg-blue-600 text-white' : isManager ? 'bg-green-600 text-white' : 'bg-gray-100 text-blue-600'}`}>
                     {user.role}
                   </span>
                   <p className="text-sm font-black uppercase tracking-tight mt-0.5 text-gray-900">{user.name}</p>
