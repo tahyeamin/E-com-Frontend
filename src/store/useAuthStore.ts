@@ -1,10 +1,16 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+}
+
 interface AuthState {
-  user: any | null;
-  token: string | null;
-  setAuth: (user: any, token: string) => void;
+  user: User | null;
+  setUser: (user: User | null) => void;
   logout: () => void;
 }
 
@@ -12,16 +18,15 @@ export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       user: null,
-      token: null,
-      setAuth: (user, token) => {
-        localStorage.setItem('token', token); // ব্রাউজারে টোকেন সেভ
-        set({ user, token });
-      },
+      setUser: (user) => set({ user }),
       logout: () => {
+        set({ user: null });
+        // লগআউট করলে লোকাল স্টোরেজ ক্লিয়ার হবে
         localStorage.removeItem('token');
-        set({ user: null, token: null });
       },
     }),
-    { name: 'auth-storage' } // রিফ্রেশ দিলেও ডাটা হারাবে না
+    {
+      name: 'auth-storage',
+    }
   )
 );
