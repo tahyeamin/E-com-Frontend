@@ -34,9 +34,15 @@ export default function AdminDashboard() {
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Products Card */}
-        <Link href="/admin/products" className="block group">
-          <StatCard title="Total Products" value={stats.products} icon={<Package size={24} />} color="bg-blue-600" />
-        </Link>
+        <Link href="/manager/products" className="block group">
+  <StatCard 
+    title="Total Products" 
+    value={stats.products} 
+    icon={<Package size={24} />} 
+    color="bg-blue-600" 
+    clickable 
+  />
+</Link>
 
         {/* Orders Card */}
         <Link href="/admin/orders" className="block group">
