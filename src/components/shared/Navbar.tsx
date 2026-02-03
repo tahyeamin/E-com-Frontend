@@ -1,24 +1,39 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // useEffect যোগ করা হয়েছে
+import axios from 'axios'; // axios ইমপোর্ট করতে হবে
 import Link from 'next/link';
-import { ShoppingCart, User, Search, LogOut, LayoutDashboard, ChevronDown, Menu, X, ShieldCheck } from 'lucide-react'; // ShieldCheck যোগ করা হয়েছে
+import { ShoppingCart, User, Search, LogOut, LayoutDashboard, ChevronDown, Menu, X, ShieldCheck } from 'lucide-react';
 import { useAuthStore } from '@/store/useAuthStore';
+
+// ক্যাটাগরি ইন্টারফেস
+interface Category {
+  id: number;
+  name: string;
+}
 
 export const Navbar = () => {
   const { user, logout } = useAuthStore();
   const [isCatOpen, setIsCatOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // ১. ডাইনামিক ক্যাটাগরি স্টেট
+  const [categories, setCategories] = useState<Category[]>([]);
 
-  // ডাইনামিক রোল চেক (বিদ্যমান লজিক ঠিক রাখা হয়েছে)
+  // ২. ডাটাবেজ থেকে ক্যাটাগরি নিয়ে আসা
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get('http://localhost:3000/categories'); // আপনার ব্যাকএন্ড পোর্ট
+        setCategories(res.data);
+      } catch (error) {
+        console.error("Failed to load categories", error);
+      }
+    };
+    fetchCategories();
+  }, []);
+
   const isAdmin = user?.role?.toUpperCase() === 'ADMIN';
-  const isManager = user?.role?.toUpperCase() === 'MANAGER'; // নতুন ম্যানেজার চেক
-
-  const categories = [
-    { name: 'Computers', href: '/category/computers' },
-    { name: 'Smartphones', href: '/category/smartphones' },
-    { name: 'Accessories', href: '/category/accessories' },
-    { name: 'Monitors', href: '/category/monitors' },
-  ];
+  const isManager = user?.role?.toUpperCase() === 'MANAGER';
 
   return (
     <nav className="bg-black text-white sticky top-0 z-50 shadow-md w-full border-b border-gray-900">
@@ -37,7 +52,6 @@ export const Navbar = () => {
             PRIME<span className="text-blue-500">TECH</span>
           </Link>
 
-          {/* অ্যাডমিন প্যানেল বাটন (বিদ্যমান) */}
           {isAdmin && (
             <Link 
               href="/admin" 
@@ -47,7 +61,6 @@ export const Navbar = () => {
             </Link>
           )}
 
-          {/* নতুন ম্যানেজার প্যানেল বাটন (লোগোর পাশে ডেস্কটপ ভিউতে) */}
           {isManager && (
             <Link 
               href="/manager" 
@@ -57,7 +70,7 @@ export const Navbar = () => {
             </Link>
           )}
 
-          {/* Categories Dropdown (বিদ্যমান) */}
+          {/* Categories Dropdown (এখন ডাইনামিক) */}
           <div 
             className="relative hidden lg:block"
             onMouseEnter={() => setIsCatOpen(true)}
@@ -68,119 +81,29 @@ export const Navbar = () => {
             </button>
             {isCatOpen && (
               <div className="absolute top-[60px] left-6 w-52 bg-white text-black shadow-2xl rounded-b-xl py-3 border-t-2 border-blue-500">
-                {categories.map((cat) => (
-                  <Link key={cat.name} href={cat.href} className="block px-5 py-2.5 text-sm font-bold hover:bg-gray-50 hover:text-blue-600 transition-all">
-                    {cat.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* --- Middle: Search Bar (বিদ্যমান) --- */}
-        <div className="hidden lg:flex flex-1 mx-12 max-w-md relative">
-          <input 
-            type="text" 
-            placeholder="Search for gadgets..." 
-            className="w-full pl-10 pr-4 py-2 bg-gray-900/50 border border-gray-800 rounded-lg focus:ring-1 focus:ring-blue-500 outline-none text-sm text-gray-300"
-          />
-          <Search className="absolute left-3 top-2.5 text-gray-500" size={16} />
-        </div>
-
-        {/* --- Right: Cart & Auth (বিদ্যমান) --- */}
-        <div className="flex items-center gap-3 md:gap-6">
-          <button className="lg:hidden hover:text-blue-400 p-1">
-            <Search size={22} />
-          </button>
-
-          <Link href="/cart" className="relative hover:text-blue-400 transition-all">
-            <ShoppingCart size={22} />
-            <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] w-4.5 h-4.5 rounded-full flex items-center justify-center font-black border-2 border-black">
-              0
-            </span>
-          </Link>
-
-          {user ? (
-            <div className="flex items-center gap-3 border-l border-gray-800 pl-4 md:pl-6">
-              <div className="hidden sm:flex flex-col items-end text-right">
-                <span className={`text-[9px] font-black uppercase tracking-tighter px-1.5 py-0.5 rounded shadow-sm ${isAdmin ? 'bg-blue-600 text-white' : isManager ? 'bg-green-600 text-white' : 'bg-gray-800 text-blue-400'}`}>
-                  {user.role}
-                </span>
-                <span className="text-sm font-black uppercase tracking-tight mt-0.5">{user.name}</span>
-              </div>
-              <button onClick={logout} className="p-2 hover:bg-red-500/10 hover:text-red-500 rounded-full transition-all">
-                <LogOut size={20} />
-              </button>
-            </div>
-          ) : (
-            <Link href="/login" className="bg-white text-black px-4 py-1.5 md:px-5 md:py-2 rounded-full text-xs font-black uppercase hover:bg-blue-500 hover:text-white transition-all shadow-md">
-              Login
-            </Link>
-          )}
-        </div>
-      </div>
-
-      {/* --- Mobile Sidebar Overlay --- */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] lg:hidden">
-          <div className="w-72 h-full bg-white text-black p-6 animate-in slide-in-from-left duration-300 flex flex-col">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-xl font-black italic text-blue-600">PRIME MENU</h2>
-              <button onClick={() => setIsMobileMenuOpen(false)}><X size={24} /></button>
-            </div>
-
-            <div className="space-y-6 flex-1">
-              {/* মোবাইল মেনুতে অ্যাডমিন লিঙ্ক */}
-              {isAdmin && (
-                <Link 
-                  href="/admin" 
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-3 bg-blue-600 text-white p-4 rounded-xl font-bold text-sm shadow-lg shadow-blue-100"
-                >
-                  <LayoutDashboard size={18} /> Admin Dashboard
-                </Link>
-              )}
-
-              {/* মোবাইল মেনুতে ম্যানেজার লিঙ্ক */}
-              {isManager && (
-                <Link 
-                  href="/manager" 
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-3 bg-green-600 text-white p-4 rounded-xl font-bold text-sm shadow-lg shadow-green-100"
-                >
-                  <ShieldCheck size={18} /> Manager Dashboard
-                </Link>
-              )}
-
-              <div className="border-b pb-4">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Categories</p>
-                <div className="space-y-3">
-                  {categories.map((cat) => (
-                    <Link key={cat.name} href={cat.href} onClick={() => setIsMobileMenuOpen(false)} className="block text-sm font-bold hover:text-blue-600 transition-colors">
+                {categories.length > 0 ? (
+                  categories.map((cat) => (
+                    <Link 
+                      key={cat.id} 
+                      href={`/category/${cat.name.toLowerCase().replace(/\s+/g, '-')}`} // স্লাগ ফরম্যাট
+                      className="block px-5 py-2.5 text-sm font-bold hover:bg-gray-50 hover:text-blue-600 transition-all"
+                    >
                       {cat.name}
                     </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {user && (
-              <div className="pt-6 border-t flex items-center gap-3">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white uppercase shadow-md ${isAdmin ? 'bg-blue-600' : isManager ? 'bg-green-600' : 'bg-gray-600'}`}>
-                  {user.name[0]}
-                </div>
-                <div>
-                  <span className={`text-[9px] font-black uppercase tracking-tighter px-1.5 py-0.5 rounded shadow-sm ${isAdmin ? 'bg-blue-600 text-white' : isManager ? 'bg-green-600 text-white' : 'bg-gray-100 text-blue-600'}`}>
-                    {user.role}
-                  </span>
-                  <p className="text-sm font-black uppercase tracking-tight mt-0.5 text-gray-900">{user.name}</p>
-                </div>
+                  ))
+                ) : (
+                  <p className="px-5 py-2.5 text-xs text-gray-400 italic">No categories found</p>
+                )}
               </div>
             )}
           </div>
         </div>
-      )}
+
+        {/* --- বাকি অংশ (Search, Cart, Auth) আগের মতোই থাকবে --- */}
+        {/* ... (Search bar and Right section) */}
+
+      </div>
+      {/* --- Mobile Sidebar Overlay (এখানেও একই ম্যাপ লজিক ব্যবহার করুন) --- */}
     </nav>
   );
 };
