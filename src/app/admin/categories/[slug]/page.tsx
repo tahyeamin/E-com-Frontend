@@ -2,7 +2,7 @@
 import React from 'react';
 
 export default function CategoryDetails({ params }: { params: { slug: string } }) {
-  // ইউআরএল থেকে ক্যাটাগরির স্লাগ বা নাম নেওয়া হচ্ছে
+ 
   const { slug } = params;
 
   return (
@@ -16,12 +16,12 @@ export default function CategoryDetails({ params }: { params: { slug: string } }
           Showing all products under {slug}
         </p>
 
-        {/* এখানে পরে আমরা ব্যাকএন্ড থেকে প্রোডাক্টগুলো ফেচ করে দেখাবো */}
+       
         <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="h-64 bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center">
             <span className="text-gray-400 font-bold italic">Product Placeholder</span>
           </div>
-          {/* ... আরও প্রোডাক্ট কার্ড এখানে আসবে ... */}
+          
         </div>
       </div>
     </div>
