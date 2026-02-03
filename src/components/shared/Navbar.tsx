@@ -99,11 +99,10 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* --- বাকি অংশ (Search, Cart, Auth) আগের মতোই থাকবে --- */}
-        {/* ... (Search bar and Right section) */}
+     
 
       </div>
-      {/* --- Mobile Sidebar Overlay (এখানেও একই ম্যাপ লজিক ব্যবহার করুন) --- */}
+      
     </nav>
   );
 };
