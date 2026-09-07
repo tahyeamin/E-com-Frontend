@@ -12,8 +12,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
-    // ১. টেম্পোরারি ফিক্স: এখন আর কাউকে হোমপেজে পাঠাবে না
-    // আপনি পেজগুলো ঠিকঠাক বানানোর পর নিচের কমেন্টগুলো খুলে দিতে পারেন
+ 
     
     /* if (!user || user.role?.toLowerCase() !== 'admin') {
       router.push('/'); 
@@ -22,11 +21,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     } 
     */
 
-    // সরাসরি পারমিশন সেট করে দিচ্ছি যাতে আপনি কাজ করতে পারেন
+  
     setIsAuthorized(true); 
   }, [user, router]);
 
-  // যদি অথরাইজড না হয় (লোডিং স্টেট)
+ 
   if (!isAuthorized) {
     return (
       <div className="h-screen flex items-center justify-center bg-white font-black uppercase tracking-tighter text-black">
@@ -35,7 +34,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     );
   }
 
-  // ন্যাভিগেশন আইটেমস (এখানে আমি Categories টাও যোগ করে দিয়েছি)
+
   const navItems = [
     { name: 'Dashboard', href: '/admin', icon: <LayoutDashboard size={18} /> },
     { name: 'User Management', href: '/admin/users', icon: <Users size={18} /> },
@@ -46,7 +45,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   return (
     <div className="flex min-h-screen bg-white text-black font-sans">
-      {/* Sidebar - ডার্ক থিম যাতে অ্যাডমিন ফিল আসে */}
+      {}
       <aside className="w-64 bg-zinc-950 text-white p-6 fixed h-full shadow-2xl border-r border-zinc-800">
         <div className="flex items-center gap-2 mb-10">
           <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold italic">E</div>
@@ -70,7 +69,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           ))}
         </nav>
 
-        {/* নিচের দিকে ইউজারের ইনফো চাইলে দেখাতে পারেন */}
+        {}
         <div className="absolute bottom-10 left-6 right-6 p-4 bg-zinc-900 rounded-2xl border border-zinc-800">
           <p className="text-[10px] text-zinc-500 uppercase font-black tracking-widest">Logged in as</p>
           <p className="text-xs font-bold truncate">{user?.email || 'Admin User'}</p>
