@@ -31,7 +31,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
 
   return (
     <div className="flex bg-[#F8F9FA] min-h-screen">
-      {/* Sidebar: বাটনগুলো এখন সচল */}
+      {}
       <aside className="w-[280px] sticky top-0 h-screen bg-black text-white flex flex-col pt-10 pb-6 px-4 shrink-0 overflow-y-auto z-50">
         <div className="px-6 mb-10 pt-[150px]">
           <h2 className="text-xl font-black tracking-tighter italic text-white uppercase leading-none">Manager</h2>
@@ -59,7 +59,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
         </button>
       </aside>
 
-      {/* Main Content Area: স্পেসিং এবং এলাইনমেন্ট ফিক্স করা হয়েছে */}
+      {}
       <main className="flex-1 p-8 overflow-hidden">
         <div className="bg-white rounded-[40px] shadow-sm min-h-full border border-gray-100 p-10">
           {children}
