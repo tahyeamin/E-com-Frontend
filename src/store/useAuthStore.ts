@@ -21,7 +21,7 @@ export const useAuthStore = create<AuthState>()(
       setUser: (user) => set({ user }),
       logout: () => {
         set({ user: null });
-        // লগআউট করলে লোকাল স্টোরেজ ক্লিয়ার হবে
+  
         localStorage.removeItem('token');
       },
     }),
