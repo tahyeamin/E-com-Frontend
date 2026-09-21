@@ -8,13 +8,13 @@ export default function ManagerDashboard() {
   const [stats, setStats] = useState({ products: 0, orders: 0 });
 
   useEffect(() => {
-    // ডাটাবেজ থেকে ইনভেন্টরি ও অর্ডার স্ট্যাটস আনা হচ্ছে
+   ে
     api.get('/users/admin/stats').then(res => setStats(res.data)).catch(err => console.log(err));
   }, []);
 
   return (
     <div className="animate-in fade-in duration-500">
-      {/* Header - একদম ক্লিন এবং শার্প */}
+      {}
       <div className="flex items-center justify-between mb-16">
         <div>
           <h1 className="text-[40px] font-black uppercase tracking-tighter text-[#0F172A] leading-none italic">
@@ -30,7 +30,7 @@ export default function ManagerDashboard() {
         </div>
       </div>
       
-      {/* Stats Section - আপনার ইমেজের মতো হুবহু গ্রিড */}
+      {}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
         {/* Total Products Card */}
         <div className="bg-white p-10 rounded-[40px] border border-gray-100 shadow-sm flex items-center justify-between group hover:border-blue-600 transition-all duration-300">
