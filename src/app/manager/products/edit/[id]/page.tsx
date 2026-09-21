@@ -11,7 +11,7 @@ export default function EditProduct() {
   const [fetching, setFetching] = useState(true);
   const [loading, setLoading] = useState(false);
   
-  // ইমেজ হ্যান্ডেল করার জন্য স্টেট
+
   const [preview, setPreview] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
 
@@ -33,7 +33,7 @@ export default function EditProduct() {
         description: p.description || '',
         categoryId: p.categoryId.toString()
       });
-      // যদি ডাটাবেজে পুরনো ছবি থাকে
+  
       if (p.image && p.image.length > 0) {
         setPreview(`http://localhost:5000${p.image[0]}`);
       }
@@ -55,12 +55,12 @@ export default function EditProduct() {
       data.append('categoryId', formData.categoryId);
       data.append('description', formData.description);
 
-      // যদি নতুন ফাইল সিলেক্ট করা হয়
+     
       if (file) {
         data.append('image', file); 
       }
 
-      // ব্যাকএন্ডের PATCH মেথড কল করা হচ্ছে
+
       await api.patch(`/products/${Number(id)}`, data, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
