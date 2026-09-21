@@ -33,7 +33,7 @@ export default function HomePage() {
     return (
         <div className="min-h-screen bg-white">
             
-            {/* ১. হিরো সেকশন */}
+            {}
             <section 
                 className="relative h-[70vh] w-full flex items-center justify-center overflow-hidden bg-[#0F172A]"
                 style={{ 
@@ -58,7 +58,7 @@ export default function HomePage() {
                 </div>
             </section>
 
-           {/* ২. ক্যাটাগরি সেকশন - প্রিমিয়াম কার্ড ডিজাইন */}
+           {}
 <section className="max-w-7xl mx-auto px-6 py-40">
     <div className="flex flex-col gap-8 mb-24 text-center">
         <span className="text-blue-500 font-black uppercase tracking-[0.8em] text-[10px] block">Gear Categories</span>
@@ -74,10 +74,10 @@ export default function HomePage() {
                 key={cat} 
                 className="group relative h-64 flex items-center justify-center overflow-hidden rounded-[40px] bg-gray-50 border-2 border-gray-100 transition-all duration-500 hover:border-blue-600 hover:shadow-[0_20px_50px_rgba(37,99,235,0.2)] cursor-pointer"
             >
-                {/* হোভার করলে যে নীল গ্লো আসবে */}
+                {}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-600/0 to-blue-600/0 group-hover:from-blue-600 group-hover:to-blue-800 opacity-0 group-hover:opacity-100 transition-all duration-500 z-0"></div>
                 
-                {/* টেক্সট কন্টেন্ট */}
+                {}
                 <div className="relative z-10 text-center space-y-4">
                     <h3 className="text-xl font-black uppercase tracking-[0.3em] text-gray-400 group-hover:text-white transition-colors duration-300">
                         {cat}
@@ -85,7 +85,7 @@ export default function HomePage() {
                     <div className="w-0 h-1 bg-white mx-auto group-hover:w-12 transition-all duration-500"></div>
                 </div>
 
-                {/* ডেকোরেটিভ ব্যাকগ্রাউন্ড নাম্বার */}
+                {}
                 <span className="absolute -bottom-4 -right-4 text-8xl font-black text-black/[0.03] group-hover:text-white/10 transition-colors">
                     {cat[0]}
                 </span>
@@ -94,11 +94,11 @@ export default function HomePage() {
     </div>
 </section>
 
-            {/* ৩. Featured Products Section - বড় বোল্ড টাইটেল সহ */}
+            {}
             <section className="bg-[#0F172A] py-40 text-white border-b border-white/5">
                 <div className="max-w-7xl mx-auto px-6">
                     
-                    {/* হেডার অংশ: বড় বোল্ড টাইটেল */}
+                    {}
                     <div className="text-center mb-32 space-y-8">
                         <h2 className="text-8xl md:text-9xl font-black uppercase italic tracking-tighter text-white drop-shadow-[0_5px_15px_rgba(37,99,235,0.4)]">
                             Featured <br /> <span className="text-blue-600">Products</span>
@@ -107,7 +107,7 @@ export default function HomePage() {
                         <span className="text-blue-500 font-black uppercase tracking-[0.8em] text-[12px] block">Strategic Selection</span>
                     </div>
 
-                    {/* গ্রিড লেআউট - ৪টি প্রোডাক্ট */}
+                    {}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                         {products.slice(0, 4).map((product) => (
                             <Link href={`/products/${product.id}`} key={product.id} className="group space-y-8">
@@ -134,11 +134,11 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* ৪. Best Selling Section - বড় বোল্ড টাইটেল সহ */}
+            {}
             <section className="bg-[#0A101E] py-40 text-white">
                 <div className="max-w-7xl mx-auto px-6">
                     
-                    {/* হেডার অংশ: বড় বোল্ড টাইটেল */}
+                    {}
                     <div className="text-center mb-32 space-y-8">
                         <h2 className="text-8xl md:text-9xl font-black uppercase italic tracking-tighter text-white">
                             Best <span className="text-blue-600">Selling</span>
