@@ -23,20 +23,20 @@ export default function LoginPage() {
     setError('');
 
     try {
-      // ১. ব্যাকএন্ডে এপিআই কল
+ 
       const { data } = await api.post('/auth/login', { email, password });
 
-      // ২. কুকিতে টোকেন এবং রোল সেট করা (মিডলওয়্যারের জন্য)
+     
       Cookies.set('token', data.access_token, { expires: 7 });
       Cookies.set('role', data.user.role, { expires: 7 });
 
-      // ৩. Zustand Store এবং LocalStorage আপডেট
+   
       setUser(data.user);
       localStorage.setItem('token', data.access_token);
 
       toast.success('Login Successful!');
       
-      // ৪. রোল অনুযায়ী রিডাইরেক্ট
+
       if (data.user.role === 'ADMIN') {
         router.push('/admin');
       } else {
