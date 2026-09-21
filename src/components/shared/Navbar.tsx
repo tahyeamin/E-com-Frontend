@@ -1,6 +1,6 @@
 'use client';
-import { useState, useEffect } from 'react'; // useEffect যোগ করা হয়েছে
-import axios from 'axios'; // axios ইমপোর্ট করা হয়েছে
+import { useState, useEffect } from 'react'; 
+import axios from 'axios'; 
 import Link from 'next/link';
 import { ShoppingCart, User, Search, LogOut, LayoutDashboard, ChevronDown, Menu, X, ShieldCheck } from 'lucide-react';
 import { useAuthStore } from '@/store/useAuthStore';
@@ -10,23 +10,23 @@ export const Navbar = () => {
   const [isCatOpen, setIsCatOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
-  // ১. ডাইনামিক ক্যাটাগরি স্টেট
+
   const [categories, setCategories] = useState<{ name: string; href: string }[]>([]);
 
-  // ২. ডাটাবেজ থেকে ক্যাটাগরি ফেচ করা
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/categories'); // আপনার ব্যাকএন্ড পোর্ট
-        // ডাটাকে নেভিগেশন ফরম্যাটে রূপান্তর
+        const res = await axios.get('http://localhost:3000/categories'); 
+        
         const formattedCats = res.data.map((cat: any) => ({
           name: cat.name,
-          href: `/category/${cat.name.toLowerCase().replace(/\s+/g, '-')}` // স্লাগ তৈরি
+          href: `/category/${cat.name.toLowerCase().replace(/\s+/g, '-')}` 
         }));
         setCategories(formattedCats);
       } catch (error) {
         console.error("Failed to load categories", error);
-        // এরর হলে এই ডিফল্টগুলো দেখাবে
+        
         setCategories([
           { name: 'Computers', href: '/category/computers' },
           { name: 'Smartphones', href: '/category/smartphones' },
@@ -74,7 +74,7 @@ export const Navbar = () => {
             </Link>
           )}
 
-          {/* Categories Dropdown (এখন ডাইনামিক) */}
+          {/* Categories Dropdown  */}
           <div 
             className="relative hidden lg:block"
             onMouseEnter={() => setIsCatOpen(true)}
@@ -99,7 +99,7 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* Middle: Search Bar (বিদ্যমান) */}
+        {/* Middle: Search Bar  */}
         <div className="hidden lg:flex flex-1 mx-12 max-w-md relative">
           <input 
             type="text" 
@@ -109,7 +109,7 @@ export const Navbar = () => {
           <Search className="absolute left-3 top-2.5 text-gray-500" size={16} />
         </div>
 
-        {/* Right: Cart & Auth (বিদ্যমান) */}
+        {/* Right: Cart & Auth  */}
         <div className="flex items-center gap-3 md:gap-6">
           <button className="lg:hidden hover:text-blue-400 p-1">
             <Search size={22} />
@@ -142,7 +142,7 @@ export const Navbar = () => {
         </div>
       </div>
 
-      {/* --- Mobile Sidebar Overlay (এখন ডাইনামিক) --- */}
+      {/* --- Mobile Sidebar Overlay  --- */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] lg:hidden">
           <div className="w-72 h-full bg-white text-black p-6 animate-in slide-in-from-left duration-300 flex flex-col">
