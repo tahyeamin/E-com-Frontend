@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  /* বডি সব সময় সাদা রাখার জন্য */
+ 
   --background: #ffffff;
   --foreground: #171717;
 }
 
-/* ডার্ক মোড মিডিয়া কোয়েরি সরিয়ে দিয়েছি যাতে সিস্টেম ডার্ক থাকলেও সাইট সাদা থাকে */
+
 
 @theme inline {
   --color-background: var(--background);
