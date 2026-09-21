@@ -19,7 +19,7 @@ export default function AddProduct() {
     data.append('name', formData.name);
     data.append('price', formData.price);
     data.append('stock', formData.stock);
-    data.append('categoryId', formData.categoryId); // এটি অবশ্যই ডাটাবেজে থাকতে হবে
+    data.append('categoryId', formData.categoryId); 
     data.append('description', formData.description);
     if (file) data.append('image', file);
 
