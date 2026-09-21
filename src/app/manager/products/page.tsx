@@ -73,7 +73,7 @@ export default function ManagerProducts() {
                         className="w-full h-full object-cover"
                         alt={product.name}
                         onError={(e) => {
-                          // ইমেজ না পাওয়া গেলে আইকন দেখাবে
+                         
                           (e.target as HTMLImageElement).style.display = 'none';
                         }}
                       />
