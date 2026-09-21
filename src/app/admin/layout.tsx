@@ -38,7 +38,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const navItems = [
     { name: 'Dashboard', href: '/admin', icon: <LayoutDashboard size={18} /> },
     { name: 'User Management', href: '/admin/users', icon: <Users size={18} /> },
-    { name: 'Categories', href: '/admin/categories', icon: <FolderTree size={18} /> }, // নতুন যোগ করা হলো
+    { name: 'Categories', href: '/admin/categories', icon: <FolderTree size={18} /> }, 
     { name: 'Products', href: '/admin/products', icon: <Package size={18} /> },
     { name: 'Orders', href: '/admin/orders', icon: <ShoppingBag size={18} /> },
   ];
