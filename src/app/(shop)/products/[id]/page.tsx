@@ -40,10 +40,10 @@ export default function ProductDetails() {
                     />
                 </div>
 
-               {/* Right Side: Product Specs & Actions - সুপার স্পেসড লেআউট */}
+               {}
 <div className="flex-1 flex flex-col justify-start space-y-20 py-10"> 
     
-    {/* ১. হেডার সেকশন (টাইটেল ও আইডি) - নিচে বিশাল গ্যাপ */}
+    {}
     <div className="flex flex-col gap-8"> 
         <div>
             <span className="text-blue-600 text-[12px] font-black uppercase tracking-[0.6em] italic block mb-6">
@@ -63,7 +63,7 @@ export default function ProductDetails() {
         </div>
     </div>
 
-    {/* ২. প্রাইস সেকশন - একা একটা বড় জায়গায় থাকবে */}
+    {}
     <div className="py-12 border-y border-gray-100 flex flex-col gap-4"> 
         <p className="text-[11px] font-black uppercase text-gray-400 tracking-[0.3em]">Acquisition Cost</p>
         <p className="text-7xl font-black italic text-gray-900 tracking-tighter">
@@ -71,7 +71,7 @@ export default function ProductDetails() {
         </p>
     </div>
 
-    {/* ৩. কোয়ান্টিটি সিলেক্টর */}
+    {}
     <div className="flex flex-col gap-8">
         <p className="text-[11px] font-black uppercase text-gray-400 tracking-[0.3em]">Select Units Required</p>
         <div className="flex items-center w-max border-2 border-gray-900 rounded-[30px] overflow-hidden shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
@@ -91,7 +91,7 @@ export default function ProductDetails() {
         </div>
     </div>
 
-    {/* ৪. অ্যাকশন বাটন সেকশন */}
+    {}
     <div className="flex flex-col gap-10">
         <button className="w-full bg-black text-white py-10 rounded-[50px] font-black uppercase tracking-[0.4em] text-sm hover:bg-blue-600 transition-all shadow-2xl flex items-center justify-center gap-6 active:scale-95 group">
             <ShoppingCart size={28} className="group-hover:translate-x-2 transition-transform" /> 
@@ -106,7 +106,7 @@ export default function ProductDetails() {
         </div>
     </div>
 
-    {/* ৫. ট্রাস্ট ব্যাজ - */}
+    {}
     <div className="grid grid-cols-2 gap-12 pt-16 border-t-2 border-gray-100">
         <div className="flex items-center gap-5">
             <Truck className="text-blue-600" size={32} />
