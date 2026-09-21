@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Trash2, Plus, ListTree } from 'lucide-react';
-import { toast } from 'react-hot-toast'; // যদি toast ইন্সটল করা থাকে
+import { toast } from 'react-hot-toast'; 
 
 interface Category {
   id: number;
@@ -17,10 +17,10 @@ export default function CategoryPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // ১. ডাটাবেজ থেকে ক্যাটাগরি লিস্ট নিয়ে আসা
+
   const fetchCategories = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/categories'); // আপনার ব্যাকএন্ড পোর্ট
+      const res = await axios.get('http://localhost:3000/categories'); ট
       setCategories(res.data);
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -31,12 +31,12 @@ export default function CategoryPage() {
     fetchCategories();
   }, []);
 
-  // ২. নতুন ক্যাটাগরি তৈরি করা
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const token = localStorage.getItem('token'); // টোকেন নিচ্ছি
+      const token = localStorage.getItem('token'); 
       await axios.post(
         'http://localhost:3000/categories',
         { name, description },
@@ -45,7 +45,7 @@ export default function CategoryPage() {
       
       setName('');
       setDescription('');
-      fetchCategories(); // নতুন ডাটা আসার পর লিস্ট আপডেট
+      fetchCategories(); 
       alert('Category created successfully!');
     } catch (error: any) {
       alert(error.response?.data?.message || 'Error creating category');
@@ -54,7 +54,7 @@ export default function CategoryPage() {
     }
   };
 
-  // ৩. ক্যাটাগরি ডিলিট করা
+
   const deleteCategory = async (id: number) => {
     if (!confirm('Are you sure you want to delete this category?')) return;
 
@@ -63,7 +63,7 @@ export default function CategoryPage() {
       await axios.delete(`http://localhost:3000/categories/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      fetchCategories(); // ডিলিট হওয়ার পর লিস্ট আপডেট
+      fetchCategories(); 
     } catch (error) {
       alert('Delete failed! Check if backend has the DELETE method.');
     }
